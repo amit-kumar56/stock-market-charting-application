@@ -1,6 +1,7 @@
 package com.example.Amit.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.Amit.exception.SectorNotFoundException;
 import com.example.Amit.model.Company;
@@ -31,17 +32,17 @@ public class SectorController
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 
-    /*
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<Sector> findById(@PathVariable String id) throws SectorNotFoundException
     {
-        Sector sectorDto = sectorService.findById(id);
+        Optional<Sector> sectorDto = sectorService.findById(id);
         if(sectorDto == null) {
             throw new SectorNotFoundException("Sector not found for id : " + id);
         }
-        return ResponseEntity.ok(sectorDto);
+        return ResponseEntity.ok(sectorDto.get());
     }
-   */
+
     @PostMapping(path = "")
     public ResponseEntity<Sector> save(@RequestBody Sector sectorDto) {
         return ResponseEntity
