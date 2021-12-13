@@ -7,8 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface IpoRepository extends MongoRepository<Ipo, String>
-{
+public interface IpoRepository extends MongoRepository<Ipo, String> {
+
+    public Optional<Ipo> findById(String id);
 
     public void deleteById(String id);
 }

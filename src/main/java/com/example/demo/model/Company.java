@@ -30,5 +30,9 @@ public class Company
     private String sectorName;
     private String description;
 
+    @DBRef
+    private List<Ipo> ipos = new ArrayList<>();
 
+    @DBRef
+    private List<StockPrice> stockPrices = new ArrayList<>();
 }

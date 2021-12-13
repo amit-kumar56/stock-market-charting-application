@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.dto.IpoDto;
 import com.example.demo.exceptions.CompanyNotFoundException;
 import com.example.demo.exceptions.IpoNotFoundException;
 import com.example.demo.model.Ipo;
@@ -16,29 +17,28 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/ipo")
 public class IpoController {
-
     @Autowired
     private IpoService ipoService;
 
     @GetMapping(path = "")
-    public ResponseEntity<List<Ipo>> findAll() {
+    public ResponseEntity<List<IpoDto>> findAll() {
         return ResponseEntity.ok(ipoService.findAll());
     }
-    /*
+
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Ipo> findById(@PathVariable String id)throws IpoNotFoundException
+    public ResponseEntity<IpoDto> findById(@PathVariable String id)throws IpoNotFoundException
     {
-        Optional<Ipo> ipoDto = ipoService.findById(id);
+        IpoDto ipoDto = ipoService.findById(id);
         if(ipoDto == null) {
             throw new IpoNotFoundException("Ipo not found for id : " + id);
         }
         return ResponseEntity.ok(ipoDto);
     }
-    */
+
     @PostMapping(path = "")
-    public ResponseEntity<Ipo> save(@RequestBody Ipo ipoDto)throws CompanyNotFoundException
+    public ResponseEntity<IpoDto> save(@RequestBody IpoDto ipoDto)throws CompanyNotFoundException
     {
-        Ipo addedIpoDto = ipoService.save(ipoDto);
+        IpoDto addedIpoDto = ipoService.save(ipoDto);
         if(addedIpoDto == null) {
             throw new CompanyNotFoundException("Company not found with name : " + ipoDto.getCompanyName());
         }
@@ -48,10 +48,10 @@ public class IpoController {
     }
 
     @PutMapping(path = "")
-    public ResponseEntity<Ipo> update(@RequestBody Ipo ipoDto)
+    public ResponseEntity<IpoDto> update(@RequestBody IpoDto ipoDto)
             throws IpoNotFoundException
     {
-        Ipo updatedIpoDto = ipoService.update(ipoDto);
+        IpoDto updatedIpoDto = ipoService.update(ipoDto);
         if(updatedIpoDto == null) {
             throw new IpoNotFoundException("Ipo not found for id : " + ipoDto.getId());
         }
