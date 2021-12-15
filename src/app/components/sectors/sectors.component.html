@@ -1,0 +1,35 @@
+<hr>
+<a routerLink="/create-sector" class="btn btn-primary">Add new Sector</a>
+<br>
+<br>
+
+<table  class="table table-striped">
+  <thead class="thead-inverse thead-dark">
+    <tr>
+      <th>Sector Name</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sector of sectors">
+      <td>{{ sector.name }}</td>
+      <td>{{ sector.description }}</td>
+      <td>
+        <button (click) = "updateSector(sector.id)" class="btn btn-secondary btn-sm">
+            <i class="fa fa-trash"></i> edit
+          </button>
+      </td>
+      <td>
+        <button (click)="deleteSector(sector.id)" class="btn btn-secondary btn-sm">
+          <i class="fa fa-trash"></i> Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noSectors>
+  <h5>There are no sectors in the system.</h5>
+</ng-template>

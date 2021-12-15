@@ -1,0 +1,37 @@
+<hr>
+<a routerLink="/create-company" class="btn btn-primary">Add new Company</a>
+<br>
+<br>
+
+<table  class="table table-striped">
+  <thead class="thead-inverse thead-dark">
+    <tr>
+      <th>Company Name</th>
+      <th>Stock Exchanges</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.stockExchangeNames }}</td>
+      <td>{{ company.description }}</td>
+      <td>
+        <button (click) = "updateCompany(company.id)" class="btn btn-secondary btn-sm">
+          <i class="fa fa-trash"></i> edit
+        </button>
+      </td>
+      <td>
+        <button (click) = "deleteCompany(company.id)" class="btn btn-secondary btn-sm">
+          <i class="fa fa-trash"></i> Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noCompanies>
+  <h5>There are no clients in the system.</h5>
+</ng-template>

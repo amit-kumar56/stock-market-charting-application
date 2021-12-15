@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-6">
+      <a routerLink="/sectors" class="btn btn-link">
+        <i class="fa fa-arrow-circle-o-left"></i> Back To List of Sectors
+      </a>
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <div class="card-header">
+      Add Sector
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()">
+  
+        <div class="form-group">
+          <label for="sectorName">Sector Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="sectorName"
+            [(ngModel)]="sector.name"
+            minlength="2"
+            required>
+        </div>
+  
+        <div class="form-group">
+          <label for="description">Sector Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            [(ngModel)]="sector.description"
+            minlength="2"
+            required>
+        </div>
+  
+        <input type="submit" value="Submit" class="btn btn-primary btn-block">
+      </form>
+    </div>
+  </div>
