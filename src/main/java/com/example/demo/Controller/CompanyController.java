@@ -1,72 +1,131 @@
 package com.example.demo.Controller;
 
+import java.util.List;
+
 import com.example.demo.dto.CompanyDto;
 import com.example.demo.dto.IpoDto;
 import com.example.demo.dto.StockPriceDto;
 import com.example.demo.exceptions.CompanyNotFoundException;
-import com.example.demo.exceptions.IpoNotFoundException;
-import com.example.demo.model.Company;
 import com.example.demo.service.CompanyService;
-import com.example.demo.service.IpoService;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Optional;
-
-@Component
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @RestController
-@RequestMapping("/ipos")
+@CrossOrigin(origins= "*")
+@RequestMapping("/company-service/companies")
 public class CompanyController
 {
     @Autowired
-    private IpoService ipoService;
+    private CompanyService companyService;
 
     @GetMapping(path = "")
-    public ResponseEntity<List<IpoDto>> findAll() {
-        return ResponseEntity.ok(ipoService.findAll());
+    public ResponseEntity<List<CompanyDto>> getCompanies()
+    {
+        return ResponseEntity
+                .ok(companyService.getCompanies());
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<IpoDto> findById(@PathVariable String id)throws IpoNotFoundException
+    public ResponseEntity<CompanyDto> getCompanyDetails(@PathVariable String id)
+            throws CompanyNotFoundException
     {
-        IpoDto ipoDto = ipoService.findById(id);
-        if(ipoDto == null) {
-            throw new IpoNotFoundException("Ipo not found for id : " + id);
+        CompanyDto companyDto = companyService.findById(id);
+        if(companyDto == null) {
+            throw new CompanyNotFoundException("Company not found at id : " + id);
         }
-        return ResponseEntity.ok(ipoDto);
+        return ResponseEntity.ok(companyDto);
+    }
+
+    @GetMapping(path = "/match/{pattern}")
+    public ResponseEntity<List<CompanyDto>> getMatchingCompanies(@PathVariable String pattern)
+    {
+        return ResponseEntity.ok(companyService.getMatchingCompanies(pattern));
+    }
+
+    @GetMapping(path = "/{id}/ipos")
+    public ResponseEntity<List<IpoDto>> getCompanyIpoDetails(@PathVariable String id)
+            throws CompanyNotFoundException
+    {
+        List<IpoDto> ipoDtos = companyService.getCompanyIpoDetails(id);
+        if(ipoDtos == null) {
+            throw new CompanyNotFoundException("Company not found at id : " + id);
+        }
+        return ResponseEntity.ok(ipoDtos);
+    }
+
+    @GetMapping(path = "/{id}/stockPrices")
+    public ResponseEntity<List<StockPriceDto>> getStockPrices(@PathVariable String id)
+            throws CompanyNotFoundException
+    {
+        List<StockPriceDto> stockPriceDtos = companyService.getStockPrices(id);
+        if(stockPriceDtos == null) {
+            throw new CompanyNotFoundException("Company not found at id : " + id);
+        }
+        return ResponseEntity.ok(stockPriceDtos);
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<IpoDto> save(@RequestBody IpoDto ipoDto)throws CompanyNotFoundException
-    {
-        IpoDto addedIpoDto = ipoService.save(ipoDto);
-        if(addedIpoDto == null) {
-            throw new CompanyNotFoundException("Company not found with name : " + ipoDto.getCompanyName());
-        }
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(addedIpoDto);
+    @HystrixCommand(fallbackMethod = "defaultResponse")
+    public ResponseEntity<?> addCompany(@RequestBody CompanyDto companyDto) {
+        return ResponseEntity.ok(companyService.addCompany(companyDto));
     }
 
     @PutMapping(path = "")
-    public ResponseEntity<IpoDto> update(@RequestBody IpoDto ipoDto)
-            throws IpoNotFoundException
+    public ResponseEntity<CompanyDto> editCompany(@RequestBody CompanyDto companyDto)
+            throws CompanyNotFoundException
     {
-        IpoDto updatedIpoDto = ipoService.update(ipoDto);
-        if(updatedIpoDto == null) {
-            throw new IpoNotFoundException("Ipo not found for id : " + ipoDto.getId());
+        CompanyDto updatedCompanyDto = companyService.editCompany(companyDto);
+        if(updatedCompanyDto == null) {
+            throw new CompanyNotFoundException("Company not found at id : " + companyDto.getId());
         }
-        return ResponseEntity.ok(updatedIpoDto);
+        return ResponseEntity.ok(updatedCompanyDto);
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteById(@PathVariable String id) {
-        ipoService.deleteById(id);
+    public void deleteCompany(@PathVariable String id) {
+        companyService.deleteCompany(id);
+    }
+
+    /* Feign Client Mappings */
+
+    @PostMapping(path = "/{companyName}/ipos")
+    public void addIpoToCompany(@PathVariable String companyName, @RequestBody IpoDto ipoDto)
+            throws CompanyNotFoundException
+    {
+        CompanyDto companyDto = companyService.addIpoToCompany(companyName, ipoDto);
+        if(companyDto == null) {
+            throw new CompanyNotFoundException("Company not with name : " + companyName);
+        }
+    }
+
+    @PostMapping(path = "/{companyCode}/stockPrices")
+    public void addStockPriceToCompany(@PathVariable String companyCode, @RequestBody StockPriceDto stockPriceDto)
+            throws CompanyNotFoundException
+    {
+        CompanyDto companyDto = companyService.addStockPriceToCompany(companyCode, stockPriceDto);
+        if(companyDto == null) {
+            throw new CompanyNotFoundException("Company not with code : " + companyCode);
+        }
+    }
+
+    /* Feign Client Default Response */
+
+    public ResponseEntity<?> defaultResponse(@RequestBody CompanyDto companyDto) {
+        String err = "Fallback error as the microservice is down.";
+        return ResponseEntity
+                .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(err);
     }
 }

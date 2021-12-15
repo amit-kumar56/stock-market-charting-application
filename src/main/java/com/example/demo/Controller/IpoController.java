@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins= "*")
+
 @RequestMapping("/ipo")
 public class IpoController {
     @Autowired
