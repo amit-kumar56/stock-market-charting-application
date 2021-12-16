@@ -1,0 +1,35 @@
+<hr>
+<a routerLink="/create-stockPrice" class="btn btn-primary">Add new Stock</a>
+<br>
+<br>
+
+<table  class="table table-striped">
+  <thead class="thead-inverse thead-dark">
+    <tr>
+      <th>stockExchange Name</th>
+      <th>Price</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let stock of stockPrice">
+      <td>{{ stock.stockExchangeName }}</td>
+      <td>{{ stock.price }}</td>
+      <td>
+        <button (click) = "updateStockPrice(stock.id)" class="btn btn-secondary btn-sm">
+            <i class="fa fa-trash"></i> edit
+          </button>
+      </td>
+      <td>
+        <button (click)="deleteStockPrice(stock.id)" class="btn btn-secondary btn-sm">
+          <i class="fa fa-trash"></i> Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noSectors>
+  <h5>There are no sectors in the system.</h5>
+</ng-template>

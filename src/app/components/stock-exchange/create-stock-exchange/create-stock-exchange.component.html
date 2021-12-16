@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-md-6">
+      <a routerLink="/stockExchange" class="btn btn-link">
+        <i class="fa fa-arrow-circle-o-left"></i> Back To List of Stock Exchanges
+      </a>
+    </div>
+    <div class="col-md-6">
+  
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      Add stockExchange
+    </div>
+    <div class="card-body">
+      <form  (ngSubmit)="onSubmit()">
+  
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            [(ngModel)]="stockExchange.name"
+            placeholder="Stock Exchange Name"
+            minlength="2"
+            required>
+        </div>
+  
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            [(ngModel)]="stockExchange.description"
+            placeholder="Stock Exchange Description"
+            minlength="2"
+            required>
+
+        </div>
+  
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            name="address"
+            [(ngModel)]="stockExchange.address"
+            placeholder="Contact Address"
+            minlength="2"
+            required>
+        </div>
+  
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            name="remarks"
+            [(ngModel)]="stockExchange.remarks"
+            placeholder="Remarks"
+            minlength="2"
+            required>
+        </div>
+  
+        <input type="submit"  class="btn btn-primary btn-block">
+      </form>
+    </div>
+  </div>
+  
