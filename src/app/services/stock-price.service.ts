@@ -27,8 +27,8 @@ export class StockPriceService {
   getStockPriceById(id: number): Observable<StockPrice>{
     return this.http.get<StockPrice>(`${this.url}/${id}`);
   }
-  addStockPrice(stockPrice: StockPrice): Observable<Object>{
-    return this.http.post(`${this.url}`, stockPrice);
+  addStockPrice(stockPrice: StockPrice): Observable<StockPrice[]>{
+    return this.http.post<StockPrice[]>(`${this.url}`, stockPrice);
   }
   updateStockPrice(id: number, stockPrice: StockPrice): Observable<Object>{
     return this.http.put(`${this.url}`, stockPrice);
