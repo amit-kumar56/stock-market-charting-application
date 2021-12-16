@@ -35,6 +35,7 @@ public class StockExchange
     @NonNull
     private String remarks;
 
+
     @DBRef
     private List<Company> companies = new ArrayList<>();
 }

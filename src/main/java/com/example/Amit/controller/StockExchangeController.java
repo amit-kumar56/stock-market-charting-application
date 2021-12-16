@@ -22,12 +22,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RequestMapping("/stockExchanges")
 public class StockExchangeController
 {
-
-    public StockExchangeService stockExchangeService;
     @Autowired
-    public StockExchangeController(StockExchangeService stockExchangeService) {
-        this.stockExchangeService = stockExchangeService;
-    }
+    public StockExchangeService stockExchangeService;
 
     @GetMapping(path = "")
     public ResponseEntity<List<StockExchangeDto>> getStockExchangesList() {
@@ -78,7 +74,7 @@ public class StockExchangeController
     }
 
     /* Feign Client Mapping */
-    /*
+
     @PostMapping(path = "/{stockExchangeName}/companies")
     public void addCompanyToStockExchange(@PathVariable String stockExchangeName, @RequestBody CompanyDto companyDto)
             throws StockExchangeNotFoundException
@@ -89,5 +85,5 @@ public class StockExchangeController
         }
     }
 
-     */
+
 }

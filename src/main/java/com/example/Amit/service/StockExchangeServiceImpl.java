@@ -84,4 +84,5 @@ public class StockExchangeServiceImpl implements StockExchangeService
         stockExchange = stockExchangeRepository.save(stockExchange);
         return stockExchangeMapper.toStockExchangeDto(stockExchange);
     }
+
 }
