@@ -38,6 +38,8 @@ const routes: Routes = [
   {path: 'stockPrice', component: StockPriceComponent},
   {path: 'create-stockPrice', component: CreateStockPriceComponent},
   {path: 'update-stockPrice/:id', component: UpdateStockPriceComponent},
+  {path: 'stock-prices', component: CreateStockPriceComponent},
+
 
 ];
 
