@@ -1,8 +1,8 @@
-export interface StockPrice {
-  id?: number;
-  companyCode?: string;
-  stockExchangeName?: string;
-  price?: number;
-  date?: string;
-  time?: string;
+export class StockPrice {
+  public id!: number;
+  companyCode!: string;
+  stockExchangeName!:string;
+  price!:string;
+  date!:string ;
+  time!:string ;
 }

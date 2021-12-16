@@ -12,7 +12,7 @@ import { StockExchange } from '../models/StockExchange';
 @Injectable({providedIn: 'root'})
 export class StockExchangeService {
 
-  private url = "http://localhost:8081/stockExchanges";
+  private url = "http://localhost:8085/stockExchanges";
 
   constructor(private http: HttpClient, private router: Router) {
     //this.url = 'http://stockexchangeservice-env.eba-a8uhry6b.ap-south-1.elasticbeanstalk.com/stockExchanges';
