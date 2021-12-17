@@ -39,7 +39,7 @@ const routes: Routes = [
   {path: 'create-stockPrice', component: CreateStockPriceComponent},
   {path: 'update-stockPrice/:id', component: UpdateStockPriceComponent},
   {path: 'stock-prices', component: CreateStockPriceComponent},
-
+  {path: 'import-excel', component: ImportExcelComponent},
 
 ];
 

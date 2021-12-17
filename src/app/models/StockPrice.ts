@@ -1,5 +1,5 @@
 export class StockPrice {
-  public id!: number;
+  id!: number;
   companyCode!: string;
   stockExchangeName!:string;
   price!:string;

@@ -47,6 +47,7 @@ import { UpdateStockPriceComponent } from './components/stock-price/update-stock
     StockPriceComponent,
     CreateStockPriceComponent,
     UpdateStockPriceComponent,
+    ImportExcelComponent,
 
    
   ],

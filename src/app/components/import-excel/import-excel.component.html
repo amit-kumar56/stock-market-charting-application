@@ -11,12 +11,13 @@
           (change)="onUpload($event)"
           placeholder="Upload file"
           id="excel"
-          accept=".xlsx">
-<!--          accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .xlsx">-->
+          accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
         <label class="custom-file-label" for="excel">Choose file</label>
       </div>
     </div><br><br>
-    <a href="../../../assets/sample_stock_data.xlsx">Click here to download sample excel file.</a>
+    <a download="sample_stock_data.xlsx" target="_blank" href="../../../assets/sample_stock_data.xlsx" >Click here to download sample excel file.</a>
+    <button (click)="downloadFile()">Download</button>
+    
   </div>
 
   <div *ngIf="isUploaded" class="card" style="width: 20rem;">
@@ -33,10 +34,9 @@
       <li class="list-group-item">To Date : {{ toDate }}</li>
     </ul>
     <div class="card-body">
-      <button (click)="importAgain()" class="card-link">Upload</button>
+      <button (click)="importAgain()" class="card-link">Upload More Data</button>
       <a routerLink="/stock-prices" class="card-link">Stock Price List</a>
     </div>
   </div>
 </div>
-
 

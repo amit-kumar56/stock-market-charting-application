@@ -66,7 +66,7 @@ export class StockPriceService {
   }
   */
   getCompanyStockPrices(comparsion: Comparison) {
-    return this.http.post<StockPrice[]>(this.url + "/compareCompany", comparsion);
+    return this.http.post<StockPrice[]>(`${this.url}/compareCompany` , comparsion);
   }
 /*
   getSectorStockPrices(comparsion: Comparison) {

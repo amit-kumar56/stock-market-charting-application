@@ -26,7 +26,7 @@ export class StockPriceComponent implements OnInit {
 
    
   updateStockPrice(id: number){
-    this.router.navigate(['update-sector', id]);
+    this.router.navigate(['update-stockPrice', id]);
   }
 
 
